@@ -1,0 +1,16 @@
+h1 {
+    font-family: 'Impact', 'Arial Black', sans-serif;  /* Fonte pesada estilo GTA */
+    font-size: 64px;                /* Título grande */
+    color: #ffcc00;                 /* Amarelo vibrante */
+    text-shadow: 2px 2px 0 #000,    /* Contorno preto */
+                 4px 4px 0 #900;    /* Sombra vermelha estilo "calor" */
+    text-transform: uppercase;     /* Tudo em maiúsculas */
+    letter-spacing: 3px;           /* Espaço entre letras */
+    background-color: #d62828;     /* Fundo vermelho (como molho de pizza) */
+    padding: 20px;
+    border-radius: 10px;
+    border: 4px solid #000;        /* Borda preta */
+    text-align: center;
+    max-width: 800px;
+    margin: 40px auto;             /* Centraliza na tela */
+}
