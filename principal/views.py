@@ -13,6 +13,6 @@ def historia(request):
 def home(request):
     return render(request,"home.html")
 
-def salgadas(request, produtos=None):
+def salgadas(request):
     produtos = Produto.objects.all()
-    return render(request,"pzsalgada.html", {'produtos': produtos})
+    return render(request, "pzsalgada.html", {'produtos': produtos})
