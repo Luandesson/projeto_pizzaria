@@ -1,11 +1,11 @@
 {% extends 'home.html' %}
 
 {% block title %}
-    Pizza Salgadas
+    Pizza Doce
 {% endblock %}
 
 {% block content %}
-    <h1>Pizza Salgadas</h1>
+    <h1>Pizza Doce</h1>
     <ul class="list-unstyled">
         {% for produto in produtos %}
             <li class="mb-4">
@@ -18,7 +18,7 @@
                         <!-- Título dinâmico do produto -->
                         <h5 class="card-title">{{ produto.nome }}</h5>
                         <!-- Preço dinâmico do produto -->
-                        <p class="card-text">Pizzas prontas e quentes a qualquer hora do dia! (R${{ produto.preco }})</p>
+                        <p class="card-text">Pizzas doces e quentes a qualquer hora do dia! (R${{ produto.preco }})</p>
                         <a href="#" class="btn btn-primary">Compre logo</a>
                     </div>
                 </div>
