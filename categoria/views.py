@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from categoria.models import Categoria
 
 # Create your views here.
 def cadastrar_categoria(request):
@@ -10,4 +11,4 @@ def cadastrar_categoria(request):
             categoria.save()
             return redirect('cadcategoria.html')
 
-    return render(request, 'cadcategoria.html')
+    return render(request, template_name='cadcategoria.html')

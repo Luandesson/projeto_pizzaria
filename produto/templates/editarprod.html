@@ -4,47 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Produto</title>
+    <title>Atualizar Produto</title>
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <!-- Seu CSS personalizado -->
-    <link rel="stylesheet" href="{% static 'principal/style.css' %}">
+    <!-- Tema GTA Style -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <div class="container mt-5">
-        <h2>Cadastrar Produto</h2>
-        <form method="post" enctype="multipart/form-data">
+        <h2>Atualizar Produto</h2>
+        
+        <form method="post" enctype="multipart/form-data" action="atualizarprod">
             {% csrf_token %}
+
+            <img src="{{ produto.imagem.url }}" style="height:200px; width:200px;" class="mb-3">
 
             <div class="form-group">
                 <label for="categoria">Categoria:</label>
-                <select class="form-control" id="categoria" name="categoria" required>
+                <select class="form-control" id="categoria" name="categoria" >
                     <option value="">Selecione uma categoria</option>
                     {% for categoria in categorias %}
-                        <option value="{{ categoria.id }}">{{ categoria.nome }}</option>
+                        <option value="{{ categoria.id }}" {% if categoria.id == produto.categoria.id %} selected {% endif %}>
+                            {{ categoria.nome }}
+                        </option>
                     {% endfor %}
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="nome">Nome:</label>
-                <input type="text" class="form-control" id="nome" name="nome" required>
+                <input type="text" class="form-control" id="nome" name="nome" value="{{ produto.nome }}">
             </div>
+
             <div class="form-group">
                 <label for="descricao">Descrição:</label>
-                <textarea class="form-control" id="descricao" name="descricao" required></textarea>
+                <textarea class="form-control" id="descricao" name="descricao" >{{ produto.descricao }}</textarea>
             </div>
+
             <div class="form-group">
-                <label for="imagem">Imagem:</label>
-                <input type="file" class="form-control-file" id="imagem" name="imagem" required>
+                <label for="imagem">Deseja Trocar a Imagem:</label>
+                <input type="file" class="form-control-file" id="imagem" name="imagem">
             </div>
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
+
+            <button type="submit" class="btn btn-primary">Atualizar</button>
         </form>
     </div>
 
-    <!-- Scripts do Bootstrap -->
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

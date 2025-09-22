@@ -20,6 +20,15 @@
             </div>
             <button type="submit" class="btn btn-outline-success">Buscar</button>
         </form>
+
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
         {% if produto %}
             <h2>Produto Encontrado</h2>
             <p><strong>{{ produto.nome }}</strong></p>
@@ -30,11 +39,13 @@
 
         <form method="post" action="{% url 'excluirprod' %}">
             {% csrf_token %}
-
             <input type="hidden" name="codprod" value="{{produto.id}}">
             <button type="submit">Excluir</button>
-
-
+        </form>
+        <form method="post" action="{% url 'mostrarprod' %}">
+            {% csrf_token %}
+            <input type="hidden" name="codprod" value="{{produto.id}}">
+            <button type="submit">Atualizar</button>
         </form>
 
     </div>
