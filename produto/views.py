@@ -67,4 +67,6 @@ def atualizarprod(request):
         if imagem:
             produto.imagem = imagem
         produto.save()
+        messages.success(request, 'Produto Atualizado com sucesso')
+        return redirect('buscarprod')
 
