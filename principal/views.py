@@ -6,33 +6,47 @@ from produto.models import Produto
 def inicio(request):
     return render(request, "home.html")
 
+
 def historia(request):
     return render(request, "historia.html")
+
 
 def home(request):
     return render(request, "home.html")
 
+
 def salgadas(request):
     try:
-        salgadas = Categoria.objects.get(nome='Pizza Salgada')
-        produtos = Produto.objects.filter(categoria=salgadas)
+        # ID CONFIRMADO ANTERIORMENTE: 6 (Pizzas salgadas)
+        ID_PIZZAS_SALGADAS = 6
+        categoria_salgada = Categoria.objects.get(pk=ID_PIZZAS_SALGADAS)
+
+        # Filtra todos os produtos que apontam para essa categoria ID
+        produtos = Produto.objects.filter(categoria=categoria_salgada)
     except Categoria.DoesNotExist:
+        # Se a categoria não for encontrada (ID errado), retorna lista vazia.
         produtos = []
-    return render(request, "pzsalgada.html", {'produtos': produtos})
+
+    return render(request, "salgadas.html", {'produtos': produtos})
+
 
 def doce(request):
     try:
-        doce = Categoria.objects.get(nome='Pizza Doce')
-        produtos = Produto.objects.filter(categoria=doce)
+        # ID CORRIGIDO: 5 (Pizzas doce)
+        ID_PIZZAS_DOCES = 5
+        categoria_doce = Categoria.objects.get(pk=ID_PIZZAS_DOCES)
+
+        produtos = Produto.objects.filter(categoria=categoria_doce)
     except Categoria.DoesNotExist:
         produtos = []
-    return render(request, "pzdoce.html", {'produtos': produtos})
+
+    return render(request, "doce.html", {'produtos': produtos})
+
 
 def cadastrar_produto(request):
     categorias = Categoria.objects.all()
 
     if request.method == "POST":
-        # Aqui você pode processar os dados do formulário se quiser salvar
         nome = request.POST.get('nome')
         descricao = request.POST.get('descricao')
         imagem = request.FILES.get('imagem')
@@ -52,6 +66,6 @@ def cadastrar_produto(request):
                     "mensagem": "Produto cadastrado com sucesso!"
                 })
             except Categoria.DoesNotExist:
-                pass  # Você pode lidar com o erro aqui também
+                pass
 
     return render(request, "cadastro_produto.html", {"categorias": categorias})

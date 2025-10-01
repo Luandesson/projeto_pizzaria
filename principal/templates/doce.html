@@ -19,7 +19,7 @@
                         <h5 class="card-title">{{ produto.nome }}</h5>
                         <!-- Preço dinâmico do produto -->
                         <p class="card-text">Pizzas doces e quentes a qualquer hora do dia! (R${{ produto.preco }})</p>
-                        <a href="#" class="btn btn-primary">Compre logo</a>
+                        <a href="{% url 'addcarrinho' produto.id %}" class="btn btn-primary">Compre logo</a>
                     </div>
                 </div>
             </li>
