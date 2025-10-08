@@ -49,9 +49,6 @@ projeto_pizzaria/
 └── ...
 
 
-
----
-
 ## ⚙️ Como Executar o Projeto
 
 ### 1️⃣ Clone o repositório:
