@@ -26,7 +26,7 @@ A aplicação permite gerenciar pedidos de uma pizzaria, incluindo:
   </a>
 </p>
 
----
+```
 
 ## 🧩 Estrutura do Projeto
 
@@ -47,7 +47,7 @@ projeto_pizzaria/
 ├── manage.py
 ├── requirements.txt
 └── ...
-
+```
 
 ## ⚙️ Como Executar o Projeto
 
