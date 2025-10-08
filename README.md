@@ -48,8 +48,7 @@ projeto_pizzaria/
 ├── requirements.txt
 └── ...
 
-yaml
-Copiar código
+
 
 ---
 
