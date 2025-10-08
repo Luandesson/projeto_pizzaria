@@ -112,9 +112,3 @@ Sinta-se livre para estudar, modificar e utilizar para fins educacionais.
 ⭐ Agradecimentos
 A todos os professores e colegas do curso Programação em Python para Web – SENAC Campo Grande RJ,
 pelo apoio, incentivo e compartilhamento de conhecimento durante todo o aprendizado.
-
-<p align="center"> <b>“Transformando código em aprendizado e aprendizado em resultado.”</b> </p> ```<p align="center"> 
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=python,django,sqlite,html,css,bootstrap,js,git,github,vscode" />
-  </a>
-</p>
