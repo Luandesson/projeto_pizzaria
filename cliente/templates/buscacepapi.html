@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Buscar Endereço pelo CEP</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="cep">CEP:</label>
+        <input type="text" id="cep" name="cep" maxlength="10" required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if endereco %}
+        <h2>Endereço Completo</h2>
+        {% if endereco.erro %}
+            <p>{{ endereco.erro }}</p>
+        {% else %}
+            <p>CEP: {{ endereco.cep }}</p>
+            <p>Logradouro: {{ endereco.logradouro }}</p>
+            <p>Bairro: {{ endereco.bairro }}</p>
+            <p>Cidade: {{ endereco.localidade }}</p>
+            <p>Estado: {{ endereco.uf }}</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>

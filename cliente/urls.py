@@ -8,5 +8,5 @@ urlpatterns = [
                   path('login/', views.login_view, name='login'),
                   path('sair/', views.logout_view, name='logout'),
                   path('menu_cli/', views.menu_cli, name='menu_cli'),
-
+                  path('buscacepapi/', views.buscacepapi, name='buscacepapi'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

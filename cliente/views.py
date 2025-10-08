@@ -1,10 +1,9 @@
-# cliente/views.py (Código Completo Corrigido)
-
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from cliente.models import Cliente
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib import messages
+import requests
 
 
 def cadastrar_cli(request):
@@ -58,3 +57,21 @@ def logout_view(request):
     logout(request)
     messages.success(request, 'Você saiu da sua conta com sucesso.')
     return redirect('login')
+
+
+def buscar_endereco(request):
+    endereco = {}
+
+    if request.method == 'POST':
+        cep = request.POST.get('cep')
+        url = f"https://viacep.com.br/ws/{cep}/json/"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            endereco = response.json()
+            if 'erro' in endereco:
+                endereco = {'erro': 'CEP não encontrado.'}
+        else:
+            endereco = {'erro': 'Erro ao buscar o endereço.'}
+
+    return render(request, 'buscacepapi.html', {'endereco': endereco})
