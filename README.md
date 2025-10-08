@@ -26,10 +26,10 @@ A aplicação permite gerenciar pedidos de uma pizzaria, incluindo:
   </a>
 </p>
 
-```
+
 
 ## 🧩 Estrutura do Projeto
-
+```
 projeto_pizzaria/
 │
 ├── itens_pedido/ # App responsável pelos itens do pedido
