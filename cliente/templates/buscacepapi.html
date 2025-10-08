@@ -1,29 +1,224 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Buscador de Endereço por CEP - Pizzaria Bem Recheada</title>
+
+    <!-- Bootstrap 4.1.3 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" xintegrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* Estilos customizados para o tema (simulando principal/style.css) */
+        body {
+            background-color: #f8f9fa; /* light gray background */
+            font-family: Arial, sans-serif;
+        }
+        .card-custom {
+            border-top: 4px solid #dc3545; /* Red border-danger */
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+        .cep-label {
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
-<h1>Buscar Endereço pelo CEP</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="cep">CEP:</label>
-        <input type="text" id="cep" name="cep" maxlength="10" required>
-        <button type="submit">Buscar</button>
-    </form>
 
-    {% if endereco %}
-        <h2>Endereço Completo</h2>
-        {% if endereco.erro %}
-            <p>{{ endereco.erro }}</p>
-        {% else %}
-            <p>CEP: {{ endereco.cep }}</p>
-            <p>Logradouro: {{ endereco.logradouro }}</p>
-            <p>Bairro: {{ endereco.bairro }}</p>
-            <p>Cidade: {{ endereco.localidade }}</p>
-            <p>Estado: {{ endereco.uf }}</p>
-        {% endif %}
-    {% endif %}
+    <!-- Header Section (Corresponds to your theme's header) -->
+    <header class="container-fluid bg-dark text-white p-3 shadow-lg">
+        <h1 class="text-center font-weight-bold">
+            <span class="text-danger">Pizzaria</span> Bem Recheada
+        </h1>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="container mt-4 mb-5">
+
+        <!-- Card Container -->
+        <div class="card card-custom p-4 mx-auto" style="max-width: 550px;">
+
+            <h2 class="text-danger mb-4 text-center">
+                <i class="fas fa-map-marker-alt mr-2"></i>
+                Buscar Endereço por CEP
+            </h2>
+
+            <!-- CEP Search Form -->
+            <form id="cepForm" class="mb-4">
+                <div class="form-group">
+                    <label for="cepInput" class="cep-label text-secondary">
+                        CEP (Apenas números)
+                    </label>
+                    <input
+                        type="text"
+                        id="cepInput"
+                        name="cep"
+                        maxlength="8"
+                        required
+                        placeholder="Ex: 01001000"
+                        class="form-control form-control-lg"
+                    >
+                </div>
+
+                <button
+                    type="submit"
+                    id="searchButton"
+                    class="btn btn-danger btn-lg btn-block shadow-sm"
+                >
+                    Buscar Endereço
+                </button>
+            </form>
+
+            <!-- Loading Indicator -->
+            <div id="loadingIndicator" class="text-center my-4 hidden" style="display: none;">
+                <div class="spinner-border text-danger" role="status">
+                    <span class="sr-only">Buscando...</span>
+                </div>
+                <p class="text-danger font-weight-bold mt-2">Buscando endereço...</p>
+            </div>
+
+            <!-- Result Area -->
+            <div id="resultArea" class="mt-4 p-3 border border-success rounded bg-light" style="display: none;">
+                <h3 class="h5 font-weight-bold text-success mb-3">Endereço Encontrado</h3>
+                <div id="addressDetails" class="small text-dark">
+                    <!-- Address details will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Message Box for Errors/Info -->
+            <div id="messageBox" class="mt-4 alert" role="alert" style="display: none;">
+                <!-- Messages will be displayed here -->
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center p-3 fixed-bottom">
+        <p class="m-0 small">Desenvolvido com ViaCEP | &copy; Pizzaria Bem Recheada</p>
+    </footer>
+
+
+    <!-- Bootstrap required scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" xintegrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" xintegrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" xintegrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <!-- CEP Logic Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cepForm = document.getElementById('cepForm');
+            const cepInput = document.getElementById('cepInput');
+            const searchButton = document.getElementById('searchButton');
+            const resultArea = document.getElementById('resultArea');
+            const addressDetails = document.getElementById('addressDetails');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const messageBox = document.getElementById('messageBox');
+
+            // Utility function to display messages (errors, info)
+            const showMessage = (message, type = 'danger') => {
+                messageBox.style.display = 'block';
+                // Reset classes
+                messageBox.classList.remove('alert-danger', 'alert-warning', 'alert-success');
+                messageBox.innerHTML = message;
+
+                if (type === 'danger') {
+                    messageBox.classList.add('alert-danger');
+                } else if (type === 'warning') {
+                    messageBox.classList.add('alert-warning');
+                } else if (type === 'success') {
+                    messageBox.classList.add('alert-success');
+                }
+            };
+
+            // Utility function to hide all dynamic sections
+            const resetUI = () => {
+                resultArea.style.display = 'none';
+                loadingIndicator.style.display = 'none';
+                messageBox.style.display = 'none';
+                messageBox.innerHTML = '';
+            }
+
+            // Function to handle the CEP search
+            const fetchAddress = async (cep) => {
+                resetUI();
+                loadingIndicator.style.display = 'block';
+                searchButton.disabled = true;
+
+                // Validate CEP format (8 digits)
+                if (!/^\d{8}$/.test(cep)) {
+                    loadingIndicator.style.display = 'none';
+                    searchButton.disabled = false;
+                    showMessage('O CEP deve conter 8 dígitos numéricos.', 'warning');
+                    return;
+                }
+
+                // Exponential backoff logic for retries
+                const maxRetries = 3;
+                let delay = 1000;
+
+                for (let i = 0; i < maxRetries; i++) {
+                    const apiUrl = `https://viacep.com.br/ws/${cep}/json/`;
+
+                    try {
+                        const response = await fetch(apiUrl);
+
+                        if (!response.ok) {
+                             if (i < maxRetries - 1) {
+                                // Wait for delay before next retry
+                                await new Promise(resolve => setTimeout(resolve, delay));
+                                delay *= 2; // Exponential increase
+                                continue;
+                            }
+                            throw new Error(`Erro de rede: ${response.status}`);
+                        }
+
+                        const data = await response.json();
+
+                        loadingIndicator.style.display = 'none';
+                        searchButton.disabled = false;
+
+                        // Check for error flag in ViaCEP response
+                        if (data.erro) {
+                            showMessage(`CEP <strong>${cep}</strong> não encontrado. Verifique o número digitado.`, 'danger');
+                            return;
+                        }
+
+                        // Display the successful address data
+                        addressDetails.innerHTML = `
+                            <p class="m-0"><strong class="text-dark">CEP:</strong> ${data.cep}</p>
+                            <p class="m-0"><strong class="text-dark">Logradouro:</strong> ${data.logradouro}</p>
+                            <p class="m-0"><strong class="text-dark">Bairro:</strong> ${data.bairro}</p>
+                            <p class="m-0"><strong class="text-dark">Cidade/UF:</strong> ${data.localidade} - ${data.uf}</p>
+                            ${data.ibge ? `<p class="m-0"><strong class="text-dark">IBGE:</strong> ${data.ibge}</p>` : ''}
+                        `;
+                        resultArea.style.display = 'block';
+                        showMessage('Busca realizada com sucesso!', 'success');
+                        return; // Exit function on success
+
+                    } catch (error) {
+                        // If it was the last retry, show the error
+                        if (i === maxRetries - 1) {
+                            loadingIndicator.style.display = 'none';
+                            searchButton.disabled = false;
+                            console.error('Erro ao buscar o CEP:', error);
+                            showMessage('Ocorreu um erro ao conectar com o serviço de busca de CEP após várias tentativas.', 'danger');
+                        }
+                    }
+                } // End of retry loop
+            };
+
+            // Event listener for form submission
+            cepForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                // Remove non-numeric characters before searching
+                const rawCep = cepInput.value.replace(/\D/g, '');
+                fetchAddress(rawCep);
+            });
+        });
+    </script>
 </body>
 </html>
