@@ -1,99 +1,124 @@
-# Projeto Pizzaria
+# 🍕 Projeto Pizzaria
 
-**Projeto final do curso de Programação em Python para Web – SENAC Campo Grande RJ**
-
----
-
-## 🏷️ Descrição
-
-Este projeto consiste em uma aplicação web para gerenciar pizzaria: cadastro de clientes, cardápio, controle de pedidos, itens de pedido, etc. Permite que usuários façam pedidos e que administradores visualizem e gerenciem esses pedidos.
-
-O objetivo é demonstrar conceitos aprendidos no curso, como Django (ou framework usado), modelos, migrações, rotas, views, templates, etc.
+**Projeto Final – Curso de Programação em Python para Web**  
+**SENAC Campo Grande – RJ**
 
 ---
 
-## 📂 Estrutura do Projeto / Organização
+## 💡 Sobre o Projeto
 
-Aqui está um esboço das principais pastas e arquivos do projeto:
+O **Projeto Pizzaria** é uma aplicação web desenvolvida como trabalho final do curso **Programação em Python para Web** do **Senac Campo Grande (RJ)**.  
+O objetivo é demonstrar os conhecimentos adquiridos no desenvolvimento de sistemas web utilizando **Python**, **Django** e boas práticas de programação.
+
+A aplicação permite gerenciar pedidos de uma pizzaria, incluindo:
+- Cadastro de clientes  
+- Controle de pedidos e itens  
+- Visualização de pedidos no painel administrativo  
+- Estrutura escalável e organizada em apps Django  
+
+---
+
+## 🧠 Tecnologias Utilizadas
+
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=python,django,html,css,bootstrap,git,github,vscode" />
+  </a>
+</p>
+
+---
+
+## 🧩 Estrutura do Projeto
 
 projeto_pizzaria/
 │
-├── itens_pedido/ # app para itens dos pedidos
+├── itens_pedido/ # App responsável pelos itens do pedido
 │ ├── migrations/
 │ ├── models.py
 │ ├── views.py
-│ └── …
+│ └── admin.py
 │
-├── pedido/ # app para pedidos
+├── pedido/ # App responsável pelo controle de pedidos
 │ ├── migrations/
 │ ├── models.py
 │ ├── views.py
-│ └── …
+│ └── admin.py
 │
 ├── manage.py
 ├── requirements.txt
-├── …
+└── ...
 
 yaml
 Copiar código
 
-Você pode detalhar cada app (o que contém, quais models) se quiser para o avaliador.
-
 ---
 
-## 🛠️ Tecnologias e Dependências
+## ⚙️ Como Executar o Projeto
 
-Algumas tecnologias usadas:
-
-- **Python 3.x**  
-- **Django** (ou framework web que você usou)  
-- Banco de dados (SQLite ou outro usado)  
-- Outras dependências (listar no `requirements.txt`)
-
-Certifique-se que o arquivo `requirements.txt` contém todas as bibliotecas necessárias.
-
----
-
-## 🔧 Como instalar / rodar localmente
-
-Passo a passo para configurar o projeto em sua máquina:
-
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/Luandesson/projeto_pizzaria.git
-   cd projeto_pizzaria
-(Opcional) criar ambiente virtual:
-
+### 1️⃣ Clone o repositório:
+```bash
+git clone https://github.com/Luandesson/projeto_pizzaria.git
+cd projeto_pizzaria
+2️⃣ Crie e ative o ambiente virtual:
 bash
 Copiar código
 python -m venv venv
-# no Windows
+# Ativar no Windows
 venv\Scripts\activate
-# no Linux/macOS
+# Ativar no Linux/macOS
 source venv/bin/activate
-Instalar dependências:
-
+3️⃣ Instale as dependências:
 bash
 Copiar código
 pip install -r requirements.txt
-Executar migrações:
-
+4️⃣ Aplique as migrações:
 bash
 Copiar código
 python manage.py makemigrations
 python manage.py migrate
-Criar superusuário (para acessar painel admin, se aplicável):
-
+5️⃣ Crie um superusuário:
 bash
 Copiar código
 python manage.py createsuperuser
-Rodar o servidor de desenvolvimento:
-
+6️⃣ Rode o servidor:
 bash
 Copiar código
 python manage.py runserver
-Acesse no navegador:
+Depois, acesse:
+👉 http://127.0.0.1:8000
 
-cpp
-Copiar código
-http://127.0.0.1:8000/
+🚀 Funcionalidades
+✅ Cadastro de clientes e pedidos
+✅ Listagem e controle de pedidos
+✅ Adição de itens ao pedido
+✅ Painel administrativo com Django Admin
+✅ Estrutura modular (apps independentes)
+✅ Código limpo e organizado
+
+🖼️ Demonstração (prints sugeridos)
+Adicione prints reais aqui para deixar o README mais atrativo.
+
+Exemplo:
+
+Tela de Pedidos	Painel Administrativo
+
+👨‍💻 Autor
+Luandesson Alves
+📍 Campo Grande – Rio de Janeiro
+📘 Projeto desenvolvido no SENAC Campo Grande RJ
+🌐 GitHub
+✉️ alves.luandesson@gmail.com
+
+🧾 Licença
+Este projeto está sob a licença MIT.
+Sinta-se livre para estudar, modificar e utilizar para fins educacionais.
+
+⭐ Agradecimentos
+A todos os professores e colegas do curso Programação em Python para Web – SENAC Campo Grande RJ,
+pelo apoio, incentivo e compartilhamento de conhecimento durante todo o aprendizado.
+
+<p align="center"> <b>“Transformando código em aprendizado e aprendizado em resultado.”</b> </p> ```<p align="center"> 
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=python,django,sqlite,html,css,bootstrap,js,git,github,vscode" />
+  </a>
+</p>
